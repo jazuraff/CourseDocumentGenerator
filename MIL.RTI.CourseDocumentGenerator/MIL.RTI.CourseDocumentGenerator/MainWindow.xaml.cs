@@ -33,30 +33,22 @@ namespace MIL.RTI.CourseDocumentGenerator
 
         private void BtnGenerate_Click(object sender, RoutedEventArgs e)
         {
-            var course = CboCourseSelection.Text;
-            CourseCounselingRequest request;
+            //Things I want this app to do:
+            // - Take in excel spreadsheet of soldier data:
+            //    -- Name(last, first, MI), Rank/Grade, MOS
+            // - Input boxes for initial, midcourse, end of course counseling dates
+            // - Input for Name and Title of Counselor
+            // - Dropdown of possible choices for organization
+            // - Each Soldier should have an initial, midcourse, end of course counseling statement
+            // - Tab for each (initial, mid, end) file that allows edits to the current statements
+            var request = BuildRequest();
 
-            switch (course)
-            {
-                case "13m10 -- MOSQ":
-                    request = BuildRequest();
+            string Source = "/myfiles/Counsel.pdf";
+            string Destination = "/myfiles/Counsel_Edit.pdf";
 
-                    //Things I want this app to do:
-                    // - Take in excel spreadsheet of soldier data:
-                    //    -- Name(last, first, MI), Rank/Grade, MOS
-                    // - Input boxes for initial, midcourse, end of course counseling dates
-                    // - Input for Name and Title of Counselor
-                    // - Dropdown of possible choices for organization
-                    // - Each Soldier should have an initial, midcourse, end of course counseling statement
-                    // - Tab for each (initial, mid, end) file that allows edits to the current statements
-                    string Source = "/myfiles/Counsel.pdf";
-                    string Destination = "/myfiles/Counsel_Edit.pdf";
+            var manip = new Da4856Pdf(Source, Destination);
 
-                    var manip = new Da4856Pdf(Source, Destination);
-
-                    manip.GeneratePdf(request);
-                    break;
-            }
+            manip.GeneratePdf(request);
         }
 
         private CourseCounselingRequest BuildRequest()
