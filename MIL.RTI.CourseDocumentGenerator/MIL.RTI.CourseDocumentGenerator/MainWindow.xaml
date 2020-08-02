@@ -1,0 +1,100 @@
+﻿<Window x:Class="MIL.RTI.CourseDocumentGenerator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MIL._196RTI._13M.CourseDocumentGenerator"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="734" Width="800">
+    <Grid Margin="0,0,0.333,4.667">
+        <TabControl HorizontalAlignment="Left" Height="615" Margin="10,10,0,0" VerticalAlignment="Top" Width="773">
+            <TabItem x:Name="TabGlobal" Header="Global Data" Height="31" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="-2,0,0,-0.333" Width="117">
+                <Grid Background="#FFE5E5E5" Margin="0,0,-0.333,-1.667" RenderTransformOrigin="0.499,0.541">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="187*"/>
+                        <ColumnDefinition Width="414*"/>
+                        <ColumnDefinition Width="166*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BtnBrowseDestination" Content="Select Destination" HorizontalAlignment="Left" Margin="333.333,21,0,0" VerticalAlignment="Top" Width="141" Click="BtnBrowseDestination_Click" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="TxtDestination" HorizontalAlignment="Left" Height="23" Margin="135,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="385" Grid.ColumnSpan="2"/>
+                    <Button x:Name="BtnBrowseSoliderData" Content="Select Soldier Data File" HorizontalAlignment="Left" Margin="333.333,49,0,0" VerticalAlignment="Top" Width="141" Click="BtnBrowseSoliderData_Click" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="TxtSoldierData" HorizontalAlignment="Left" Height="23" Margin="135,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="385" Grid.ColumnSpan="2"/>
+                    <DatePicker x:Name="DtDateOfCounselingInitial" HorizontalAlignment="Left" Margin="52,168,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="188"/>
+                    <DatePicker x:Name="DtDateOfCounselingMidCourse" HorizontalAlignment="Left" Margin="104.333,168,0,0" VerticalAlignment="Top" Grid.Column="1" Width="188"/>
+                    <DatePicker x:Name="DtDateOfCounselingEnd" HorizontalAlignment="Left" Margin="342.333,168,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1" Width="188"/>
+                    <Label x:Name="LblInitialDate" Content="Initial Counseling Date:" HorizontalAlignment="Left" Margin="52,144,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="188"/>
+                    <Label x:Name="LblMidCourseDate" Content="Mid-Course Counseling Date:" HorizontalAlignment="Left" Margin="104.333,144,0,0" VerticalAlignment="Top" Width="188" Grid.Column="1"/>
+                    <Label x:Name="LblEndOfCourseDate" Content="End Of Course Counseling Date:" HorizontalAlignment="Left" Margin="342.333,144,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="188" Grid.Column="1"/>
+                    <Label x:Name="LblCounselorName" Content="Name and Title of Counselor:" HorizontalAlignment="Left" Margin="48,233,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="170"/>
+                    <TextBox x:Name="TxtCounselorName" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="52.333,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="307"/>
+                    <ComboBox x:Name="CboCourseSelection" HorizontalAlignment="Left" Margin="159,97,0,0" VerticalAlignment="Top" Width="233" Grid.ColumnSpan="2" DropDownClosed="CboCourseSelection_DropdownClosed">
+                        <ComboBoxItem Content="13M10 -- MOSQ"/>
+                        <ComboBoxItem Content="13M30 -- ALC"/>
+                        <ComboBoxItem Content="13M40 -- SLC"/>
+                    </ComboBox>
+                    <Label x:Name="LblCourse" Content="Select a Course:" HorizontalAlignment="Left" Margin="48,93,0,0" VerticalAlignment="Top" Width="96"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="TabInitial" Header="Initial Values" Margin="-2.333,0,-33,0">
+                <Grid Background="#FFE5E5E5" Margin="0,2,-0.333,9.333">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="180*"/>
+                        <ColumnDefinition Width="586*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="TxtPurposeInitial" HorizontalAlignment="Left" Height="66" TextWrapping="Wrap" VerticalAlignment="Top" Width="494" Grid.Column="2" Margin="10.333,10,0,0" RenderTransformOrigin="0.506,0.623" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True"/>
+                    <Label x:Name="LblPurposeInitial" Content="Purpose Of Counseling" Grid.Column="1" HorizontalAlignment="Left" Margin="9.333,7,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,0.577" Width="136" Height="26"/>
+                    <TextBox x:Name="TxtKeyPointsInitial" HorizontalAlignment="Left" Height="66" TextWrapping="Wrap" VerticalAlignment="Top" Width="494" Grid.Column="2" Margin="10.333,111,0,0" RenderTransformOrigin="0.506,0.623" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True"/>
+                    <Label x:Name="LblKeyPointsInitial" Content="Key Points of Discussion" Grid.Column="1" HorizontalAlignment="Left" Margin="9.333,108,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,0.577" Width="160" Height="26"/>
+                    <TextBox x:Name="TxtPlanOfActionInitial" HorizontalAlignment="Left" Height="66" TextWrapping="Wrap" VerticalAlignment="Top" Width="494" Grid.Column="2" Margin="10.333,212,0,0" RenderTransformOrigin="0.506,0.623" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True"/>
+                    <Label x:Name="LblPlanOfActionInitial" Content="Plan of Action" Grid.Column="1" HorizontalAlignment="Left" Margin="9.333,209,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,0.577" Width="136" Height="26"/>
+                    <TextBox x:Name="TxtLeaderResponsibilitiesInitial" HorizontalAlignment="Left" Height="66" TextWrapping="Wrap" VerticalAlignment="Top" Width="494" Grid.Column="2" Margin="10.333,316,0,0" RenderTransformOrigin="0.506,0.623" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True"/>
+                    <Label x:Name="LblLeaderResponsibilitiesInitial" Content="Leader Responsibilities" Grid.Column="1" HorizontalAlignment="Left" Margin="9.333,313,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,0.577" Width="136" Height="26"/>
+                    <TextBox x:Name="TxtAssessmentInitial" HorizontalAlignment="Left" Height="66" TextWrapping="Wrap" VerticalAlignment="Top" Width="494" Grid.Column="2" Margin="9.333,423,0,0" RenderTransformOrigin="0.506,0.623" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True"/>
+                    <Label x:Name="LblAssessmentInitial" Content="Assessment" Grid.Column="1" HorizontalAlignment="Left" Margin="8.333,420,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,0.577" Width="136" Height="26"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="TabMidCourse" Header="Mid Course Values" Height="31" VerticalAlignment="Top" Margin="32.667,0,-46.667,-0.333">
+                <Grid Background="#FFE5E5E5" Margin="0,0,-0.333,0.333">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="185*"/>
+                        <ColumnDefinition Width="581*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="TxtPurposeMidCourse" HorizontalAlignment="Left" Height="66" TextWrapping="Wrap" VerticalAlignment="Top" Width="494" Grid.Column="1" Margin="6.667,10,0,0" RenderTransformOrigin="0.506,0.623" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True"/>
+                    <Label x:Name="LblPurposeMidCourse" Content="Purpose Of Counseling" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,0.577" Width="136" Height="26"/>
+                    <TextBox x:Name="TxtKeyPointsMidCourse" HorizontalAlignment="Left" Height="66" TextWrapping="Wrap" VerticalAlignment="Top" Width="494" Grid.Column="1" Margin="6.667,111,0,0" RenderTransformOrigin="0.506,0.623" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True"/>
+                    <Label x:Name="LblKeyPointsMidCourse" Content="Key Points of Discussion" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,0.577" Width="160" Height="26"/>
+                    <TextBox x:Name="TxtPlanOfActionMidCourse" HorizontalAlignment="Left" Height="66" TextWrapping="Wrap" VerticalAlignment="Top" Width="494" Grid.Column="1" Margin="6.667,212,0,0" RenderTransformOrigin="0.506,0.623" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True"/>
+                    <Label x:Name="LblPlanOfActionMidCourse" Content="Plan of Action" HorizontalAlignment="Left" Margin="10,209,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,0.577" Width="136" Height="26"/>
+                    <TextBox x:Name="TxtLeaderResponsibilitiesMidCourse" HorizontalAlignment="Left" Height="66" TextWrapping="Wrap" VerticalAlignment="Top" Width="494" Grid.Column="1" Margin="6.667,316,0,0" RenderTransformOrigin="0.506,0.623" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True"/>
+                    <Label x:Name="LblLeaderResponsibilitiesMidCourse" Content="Leader Responsibilities" HorizontalAlignment="Left" Margin="10,313,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,0.577" Width="136" Height="26"/>
+                    <TextBox x:Name="TxtAssessmentMidCourse" HorizontalAlignment="Left" Height="66" TextWrapping="Wrap" VerticalAlignment="Top" Width="494" Grid.Column="1" Margin="5.667,423,0,0" RenderTransformOrigin="0.506,0.623" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True"/>
+                    <Label x:Name="LblAssessmentMidCourse" Content="Assessment" HorizontalAlignment="Left" Margin="9,420,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,0.577" Width="136" Height="26"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="TabEndOfCourse" Header="End Of Course Values" Height="31" VerticalAlignment="Top" Margin="46.667,0,-46.333,-0.333" HorizontalAlignment="Left" Width="125">
+                <Grid Background="#FFE5E5E5" Margin="0,0,-0.333,-3.667">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="225*"/>
+                        <ColumnDefinition Width="542*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="TxtPurposeEndCourse" HorizontalAlignment="Left" Height="66" TextWrapping="Wrap" VerticalAlignment="Top" Width="494" Margin="191,10,0,0" RenderTransformOrigin="0.506,0.623" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True" Grid.ColumnSpan="2"/>
+                    <Label x:Name="LblPurposeEndCourse" Content="Purpose Of Counseling" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,0.577" Width="136" Height="26"/>
+                    <TextBox x:Name="TxtKeyPointsEndCourse" HorizontalAlignment="Left" Height="66" TextWrapping="Wrap" VerticalAlignment="Top" Width="494" Margin="191,111,0,0" RenderTransformOrigin="0.506,0.623" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True" Grid.ColumnSpan="2"/>
+                    <Label x:Name="LblKeyPointsEndCourse" Content="Key Points of Discussion" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,0.577" Width="160" Height="26"/>
+                    <TextBox x:Name="TxtPlanOfActionEndCourse" HorizontalAlignment="Left" Height="66" TextWrapping="Wrap" VerticalAlignment="Top" Width="494" Margin="191,212,0,0" RenderTransformOrigin="0.506,0.623" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True" Grid.ColumnSpan="2"/>
+                    <Label x:Name="LblPlanOfActionEndCourse" Content="Plan of Action" HorizontalAlignment="Left" Margin="10,209,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,0.577" Width="136" Height="26"/>
+                    <TextBox x:Name="TxtLeaderResponsibilitiesEndCourse" HorizontalAlignment="Left" Height="66" TextWrapping="Wrap" VerticalAlignment="Top" Width="494" Margin="191,316,0,0" RenderTransformOrigin="0.506,0.623" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True" Grid.ColumnSpan="2"/>
+                    <Label x:Name="LblLeaderResponsibilitiesEndCourse" Content="Leader Responsibilities" HorizontalAlignment="Left" Margin="10,313,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,0.577" Width="136" Height="26"/>
+                    <TextBox x:Name="TxtAssessmentEndCourse" HorizontalAlignment="Left" Height="66" TextWrapping="Wrap" VerticalAlignment="Top" Width="494" Margin="190,423,0,0" RenderTransformOrigin="0.506,0.623" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True" Grid.ColumnSpan="2"/>
+                    <Label x:Name="LblAssessmentEndCourse" Content="Assessment" HorizontalAlignment="Left" Margin="9,420,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,0.577" Width="136" Height="26"/>
+                </Grid>
+            </TabItem>
+            <TextBlock Height="100" TextWrapping="Wrap" Text="TextBlock" Width="100"/>
+        </TabControl>
+        <Button x:Name="BtnGenerate" Content="Generate Files" HorizontalAlignment="Left" Margin="616,630,0,0" VerticalAlignment="Top" Width="141" Height="36" Click="BtnGenerate_Click" />
+    </Grid>
+</Window>

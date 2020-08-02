@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/MIL.RTI.CourseDocumentGenerator/MIL.RTI.CourseDocumentGenerator/bin/Debug
+/MIL.RTI.CourseDocumentGenerator/MIL.RTI.CourseDocumentGenerator/obj/Debug
+/MIL.RTI.CourseDocumentGenerator/MIL.RTI.IText.PdfManipulator/bin/Debug
+/MIL.RTI.CourseDocumentGenerator/MIL.RTI.IText.PdfManipulator/obj/Debug
+/MIL.RTI.CourseDocumentGenerator/MIL.RTI.PdfDocuments/bin/Debug
+/MIL.RTI.CourseDocumentGenerator/MIL.RTI.PdfDocuments/obj/Debug
+/MIL.RTI.CourseDocumentGenerator/.vs/MIL.RTI.CourseDocumentGenerator/v16
+/MIL.RTI.CourseDocumentGenerator/packages
