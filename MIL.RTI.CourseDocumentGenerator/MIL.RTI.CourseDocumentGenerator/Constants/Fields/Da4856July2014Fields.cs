@@ -1,4 +1,4 @@
-﻿namespace MIL.RTI.PdfDocuments.Constants
+﻿namespace MIL.RTI.CourseDocumentGenerator.Constants.Fields
 {
     public static class Da4856July2014Fields
     {

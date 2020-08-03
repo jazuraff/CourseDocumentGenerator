@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MIL.RTI.PdfDocuments.Models
+namespace MIL.RTI.CourseDocumentGenerator.Models
 {
     public class CounselingData
     {

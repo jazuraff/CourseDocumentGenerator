@@ -1,20 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using MIL.RTI.IText.PdfManipulator;
-using MIL.RTI.PdfDocuments.Constants;
-using MIL.RTI.PdfDocuments.Models;
-using MIL.RTI.PdfDocuments.Requests;
+using System.Windows.Forms;
+using MIL.RTI.CourseDocumentGenerator.Constants.CourseDefaults;
+using MIL.RTI.CourseDocumentGenerator.FileHandlers;
+using MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel;
+using MIL.RTI.CourseDocumentGenerator.Helper;
+using MIL.RTI.CourseDocumentGenerator.Models;
+using MIL.RTI.CourseDocumentGenerator.Requests;
+using ComboBox = System.Windows.Controls.ComboBox;
+using MessageBox = System.Windows.MessageBox;
 
 namespace MIL.RTI.CourseDocumentGenerator
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
         private bool _handle = true;
+        private const string Source = "./Files/Da4856July2014.pdf";
 
         public MainWindow()
         {
@@ -23,12 +31,33 @@ namespace MIL.RTI.CourseDocumentGenerator
 
         private void BtnBrowseSoliderData_Click(object sender, RoutedEventArgs e)
         {
+            using (var dlg = new OpenFileDialog())
+            {
+                dlg.Filter = @"Excel files (*.xls or .xlsx)|.xls;*.xlsx";
+                dlg.ValidateNames = true;
+                var result = dlg.ShowDialog();
 
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    TxtSoldierData.Text = dlg.FileName;
+                }
+            }
         }
 
         private void BtnBrowseDestination_Click(object sender, RoutedEventArgs e)
         {
+            using (var dlg = new FolderBrowserDialog())
+            {
+                dlg.Description = @"Select the directory you want your files to be in";
+                dlg.ShowNewFolderButton = true;
 
+                var result = dlg.ShowDialog();
+
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    TxtDestination.Text = dlg.SelectedPath;
+                }
+            }
         }
 
         private void BtnGenerate_Click(object sender, RoutedEventArgs e)
@@ -41,23 +70,46 @@ namespace MIL.RTI.CourseDocumentGenerator
             // - Dropdown of possible choices for organization
             // - Each Soldier should have an initial, midcourse, end of course counseling statement
             // - Tab for each (initial, mid, end) file that allows edits to the current statements
-            var request = BuildRequest();
+            using (new WaitCursor())
+            {
+                var excelSheet = new SoldierDataFile(TxtSoldierData.Text);
+                List<SoldierData> soldierData;
 
-            string Source = "/myfiles/Counsel.pdf";
-            string Destination = "/myfiles/Counsel_Edit.pdf";
+                try
+                {
+                    soldierData = excelSheet.GetSoldierData();
+                }
+                catch (InvalidDataException ide)
+                {
+                    MessageBox.Show(ide.Message);
+                    return;
+                }
 
-            var manip = new Da4856Pdf(Source, Destination);
+                var request = BuildRequest(soldierData);
 
-            manip.GeneratePdf(request);
+                var errors = request.Validate();
+
+                if (errors.Count > 0)
+                {
+                    var formattedErrors = "";
+
+                    errors.ForEach(er => { formattedErrors += $"- {er}\r\n"; });
+
+                    MessageBox.Show(formattedErrors, "Please Enter Correct Data");
+                }
+
+                var generator = new CourseFileGenerator(request);
+                generator.Execute();
+            }
         }
 
-        private CourseCounselingRequest BuildRequest()
+        private CourseCounselingRequest BuildRequest(List<SoldierData> soldierData)
         {
             var request = new CourseCounselingRequest
             {
                 CounselorName = TxtCounselorName.Text,
                 Destination = TxtDestination.Text,
-                SoldierDataFileLocation = TxtSoldierData.Text,
+                SoldierData = soldierData,
                 InitialCounseling = new CounselingData
                 {
                     Assessment = TxtAssessmentInitial.Text,
@@ -66,20 +118,38 @@ namespace MIL.RTI.CourseDocumentGenerator
                     LeaderResponsibilities = TxtLeaderResponsibilitiesInitial.Text,
                     PlanOfAction = TxtPlanOfActionInitial.Text,
                     PurposeOfCounseling = TxtPurposeInitial.Text
+                },
+                MidCourseCounseling = new CounselingData
+                {
+                    Assessment = TxtAssessmentMidCourse.Text,
+                    DateOfCounseling = DtDateOfCounselingMidCourse.SelectedDate,
+                    KeyPoints = TxtKeyPointsMidCourse.Text,
+                    LeaderResponsibilities = TxtLeaderResponsibilitiesMidCourse.Text,
+                    PlanOfAction = TxtPlanOfActionMidCourse.Text,
+                    PurposeOfCounseling = TxtPurposeMidCourse.Text
+                },
+                EndOfCourseCounseling = new CounselingData
+                {
+                    Assessment = TxtAssessmentEndCourse.Text,
+                    DateOfCounseling = DtDateOfCounselingEnd.SelectedDate,
+                    KeyPoints = TxtKeyPointsEndCourse.Text,
+                    LeaderResponsibilities = TxtLeaderResponsibilitiesEndCourse.Text,
+                    PlanOfAction = TxtPlanOfActionEndCourse.Text,
+                    PurposeOfCounseling = TxtPurposeEndCourse.Text
                 }
             };
 
             return request;
         }
 
-        private void CboCourseSelection_DropdownClosed(object sender, System.EventArgs e)
+        private void CboCourseSelection_DropdownClosed(object sender, EventArgs e)
         {
             if (_handle) Handle();
             _handle = true;
         }
 
         private void CboCourseSelection_SelectionChanged(object sender,
-            System.Windows.Controls.SelectionChangedEventArgs e)
+            SelectionChangedEventArgs e)
         {
             if (sender is ComboBox cmb) _handle = !cmb.IsDropDownOpen;
             Handle();
@@ -105,17 +175,21 @@ namespace MIL.RTI.CourseDocumentGenerator
 
         private void PopulateMosQData()
         {
-            TxtPurposeInitial.Text = MosQualificationDefault.Purpose;
+            TxtPurposeInitial.Text = MosQualificationDefault.InitialPurpose;
+            
+            TxtPurposeMidCourse.Text = MosQualificationDefault.MidCoursePurpose;
+            
+            TxtPurposeEndCourse.Text = MosQualificationDefault.EndCoursePurpose;
         }
 
         private void PopulateAlcData()
         {
-            TxtPurposeInitial.Text = MosQualificationDefault.Purpose;
+
         }
 
         private void PopulateSlcData()
         {
-            TxtPurposeInitial.Text = MosQualificationDefault.Purpose;
+
         }
 
         private void ClearData()

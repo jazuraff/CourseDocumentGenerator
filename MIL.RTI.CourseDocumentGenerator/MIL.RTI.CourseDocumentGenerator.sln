@@ -5,10 +5,6 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MIL.RTI.CourseDocumentGenerator", "MIL.RTI.CourseDocumentGenerator\MIL.RTI.CourseDocumentGenerator.csproj", "{F6FC3495-842B-4D30-80D0-57B9C084934E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MIL.RTI.PdfDocuments", "MIL.RTI.PdfDocuments\MIL.RTI.PdfDocuments.csproj", "{2749EC4B-2A34-4E72-A9D4-6596D8981829}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MIL.RTI.IText.PdfManipulator", "MIL.RTI.IText.PdfManipulator\MIL.RTI.IText.PdfManipulator.csproj", "{64B9D208-B8BA-4FF3-8A6B-CE8ACFFF49BA}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,14 +15,6 @@ Global
 		{F6FC3495-842B-4D30-80D0-57B9C084934E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6FC3495-842B-4D30-80D0-57B9C084934E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6FC3495-842B-4D30-80D0-57B9C084934E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2749EC4B-2A34-4E72-A9D4-6596D8981829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2749EC4B-2A34-4E72-A9D4-6596D8981829}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2749EC4B-2A34-4E72-A9D4-6596D8981829}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2749EC4B-2A34-4E72-A9D4-6596D8981829}.Release|Any CPU.Build.0 = Release|Any CPU
-		{64B9D208-B8BA-4FF3-8A6B-CE8ACFFF49BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{64B9D208-B8BA-4FF3-8A6B-CE8ACFFF49BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{64B9D208-B8BA-4FF3-8A6B-CE8ACFFF49BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{64B9D208-B8BA-4FF3-8A6B-CE8ACFFF49BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

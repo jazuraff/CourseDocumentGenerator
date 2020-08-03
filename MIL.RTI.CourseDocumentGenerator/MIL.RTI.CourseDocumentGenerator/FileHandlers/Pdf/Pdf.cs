@@ -2,7 +2,7 @@
 using iText.Forms;
 using iText.Kernel.Pdf;
 
-namespace MIL.RTI.IText.PdfManipulator
+namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Pdf
 {
     public abstract class Pdf
     {
@@ -19,6 +19,7 @@ namespace MIL.RTI.IText.PdfManipulator
         {
             var reader = new PdfReader(_pdfSource).SetUnethicalReading(true);
             var writer = new PdfWriter(_pdfDestination);
+            
             var document = new PdfDocument(reader, writer);
 
             return document;

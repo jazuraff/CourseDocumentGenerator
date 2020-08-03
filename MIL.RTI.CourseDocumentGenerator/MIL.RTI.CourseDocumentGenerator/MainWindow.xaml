@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="734" Width="800">
+        Title="2nd Bn 196th RTI Document Generator" Height="734" Width="800">
     <Grid Margin="0,0,0.333,4.667">
         <TabControl HorizontalAlignment="Left" Height="615" Margin="10,10,0,0" VerticalAlignment="Top" Width="773" >
             <TabItem x:Name="TabGlobal" Header="Global Data" Height="31" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="-2,0,0,-0.333" Width="117">
@@ -17,24 +17,25 @@
                         <ColumnDefinition Width="414*"/>
                         <ColumnDefinition Width="166*"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="BtnBrowseDestination" Content="Select Destination" HorizontalAlignment="Left" Margin="333.333,21,0,0" VerticalAlignment="Top" Width="141" Click="BtnBrowseDestination_Click" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Button x:Name="BtnBrowseDestination" Content="Select Destination" HorizontalAlignment="Left" Margin="344,22,0,0" VerticalAlignment="Top" Width="141" Click="BtnBrowseDestination_Click" Grid.Column="1" Grid.ColumnSpan="2"/>
                     <TextBox x:Name="TxtDestination" HorizontalAlignment="Left" Height="23" Margin="135,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="385" Grid.ColumnSpan="2"/>
-                    <Button x:Name="BtnBrowseSoliderData" Content="Select Soldier Data File" HorizontalAlignment="Left" Margin="333.333,49,0,0" VerticalAlignment="Top" Width="141" Click="BtnBrowseSoliderData_Click" Grid.Column="1" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="TxtSoldierData" HorizontalAlignment="Left" Height="23" Margin="135,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="385" Grid.ColumnSpan="2"/>
-                    <DatePicker x:Name="DtDateOfCounselingInitial" HorizontalAlignment="Left" Margin="52,168,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="188"/>
-                    <DatePicker x:Name="DtDateOfCounselingMidCourse" HorizontalAlignment="Left" Margin="104.333,168,0,0" VerticalAlignment="Top" Grid.Column="1" Width="188"/>
-                    <DatePicker x:Name="DtDateOfCounselingEnd" HorizontalAlignment="Left" Margin="342.333,168,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1" Width="188"/>
-                    <Label x:Name="LblInitialDate" Content="Initial Counseling Date:" HorizontalAlignment="Left" Margin="52,144,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="188"/>
-                    <Label x:Name="LblMidCourseDate" Content="Mid-Course Counseling Date:" HorizontalAlignment="Left" Margin="104.333,144,0,0" VerticalAlignment="Top" Width="188" Grid.Column="1"/>
-                    <Label x:Name="LblEndOfCourseDate" Content="End Of Course Counseling Date:" HorizontalAlignment="Left" Margin="342.333,144,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="188" Grid.Column="1"/>
-                    <Label x:Name="LblCounselorName" Content="Name and Title of Counselor:" HorizontalAlignment="Left" Margin="48,233,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="170"/>
-                    <TextBox x:Name="TxtCounselorName" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="52.333,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="307"/>
-                    <ComboBox x:Name="CboCourseSelection" HorizontalAlignment="Left" Margin="159,97,0,0" VerticalAlignment="Top" Width="233" Grid.ColumnSpan="2" DropDownClosed="CboCourseSelection_DropdownClosed">
+                    <Button x:Name="BtnBrowseSoliderData" Content="Select Soldier Data File" HorizontalAlignment="Left" Margin="344,91,0,0" VerticalAlignment="Top" Width="141" Click="BtnBrowseSoliderData_Click" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="TxtSoldierData" HorizontalAlignment="Left" Height="23" Margin="135,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="385" Grid.ColumnSpan="2"/>
+                    <DatePicker x:Name="DtDateOfCounselingInitial" HorizontalAlignment="Left" Margin="52,228,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="188"/>
+                    <DatePicker x:Name="DtDateOfCounselingMidCourse" HorizontalAlignment="Left" Margin="104,228,0,0" VerticalAlignment="Top" Grid.Column="1" Width="188"/>
+                    <DatePicker x:Name="DtDateOfCounselingEnd" HorizontalAlignment="Left" Margin="342,228,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1" Width="188"/>
+                    <Label x:Name="LblInitialDate" Content="Initial Counseling Date:" HorizontalAlignment="Left" Margin="52,204,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="188"/>
+                    <Label x:Name="LblMidCourseDate" Content="Mid-Course Counseling Date:" HorizontalAlignment="Left" Margin="104,204,0,0" VerticalAlignment="Top" Width="188" Grid.Column="1"/>
+                    <Label x:Name="LblEndOfCourseDate" Content="End Of Course Counseling Date:" HorizontalAlignment="Left" Margin="342,204,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="188" Grid.Column="1"/>
+                    <Label x:Name="LblCounselorName" Content="Name and Title of Counselor:" HorizontalAlignment="Left" Margin="48,293,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="170"/>
+                    <TextBox x:Name="TxtCounselorName" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="52,293,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="307"/>
+                    <ComboBox x:Name="CboCourseSelection" HorizontalAlignment="Left" Margin="159,157,0,0" VerticalAlignment="Top" Width="233" Grid.ColumnSpan="2" DropDownClosed="CboCourseSelection_DropdownClosed">
                         <ComboBoxItem Content="13M10 -- MOSQ"/>
                         <ComboBoxItem Content="13M30 -- ALC"/>
                         <ComboBoxItem Content="13M40 -- SLC"/>
                     </ComboBox>
-                    <Label x:Name="LblCourse" Content="Select a Course:" HorizontalAlignment="Left" Margin="48,93,0,0" VerticalAlignment="Top" Width="96"/>
+                    <Label x:Name="LblCourse" Content="Select a Course:" HorizontalAlignment="Left" Margin="48,153,0,0" VerticalAlignment="Top" Width="96"/>
+                    <Label x:Name="lblSpreadsheetDescription" Content="Column Headers Expected: Full Name, Rank/Grade, MOS" HorizontalAlignment="Left" Margin="135,66,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="340"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TabInitial" Header="Initial Values" Margin="-2.333,0,-33,0">
