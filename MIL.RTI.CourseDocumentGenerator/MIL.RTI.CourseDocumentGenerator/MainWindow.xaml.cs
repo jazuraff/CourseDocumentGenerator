@@ -63,31 +63,14 @@ namespace MIL.RTI.CourseDocumentGenerator
         private void BtnGenerate_Click(object sender, RoutedEventArgs e)
         {
             //Things I want this app to do:
-            // - Take in excel spreadsheet of soldier data:
-            //    -- Name(last, first, MI), Rank/Grade, MOS
-            // - Input boxes for initial, midcourse, end of course counseling dates
-            // - Input for Name and Title of Counselor
             // - Dropdown of possible choices for organization
-            // - Each Soldier should have an initial, midcourse, end of course counseling statement
-            // - Tab for each (initial, mid, end) file that allows edits to the current statements
             using (new WaitCursor())
             {
-                var excelSheet = new SoldierDataFile(TxtSoldierData.Text);
-                List<SoldierData> soldierData;
-
-                try
-                {
-                    soldierData = excelSheet.GetSoldierData();
-                }
-                catch (InvalidDataException ide)
-                {
-                    MessageBox.Show(ide.Message);
-                    return;
-                }
-
-                var request = BuildRequest(soldierData);
+                var request = BuildRequest();
 
                 var errors = request.Validate();
+
+                var excelSheet = new SoldierDataFile(TxtSoldierData.Text);
 
                 if (errors.Count > 0)
                 {
@@ -96,6 +79,19 @@ namespace MIL.RTI.CourseDocumentGenerator
                     errors.ForEach(er => { formattedErrors += $"- {er}\r\n"; });
 
                     MessageBox.Show(formattedErrors, "Please Enter Correct Data");
+
+                    return;
+                }
+
+                try
+                {
+                    var soldierData = excelSheet.GetSoldierData();
+                    request.SoldierData = soldierData;
+                }
+                catch (InvalidDataException ide)
+                {
+                    MessageBox.Show(ide.Message);
+                    return;
                 }
 
                 var generator = new CourseFileGenerator(request);
@@ -103,13 +99,13 @@ namespace MIL.RTI.CourseDocumentGenerator
             }
         }
 
-        private CourseCounselingRequest BuildRequest(List<SoldierData> soldierData)
-        {
+        private CourseCounselingRequest BuildRequest()
+        { 
+
             var request = new CourseCounselingRequest
             {
                 CounselorName = TxtCounselorName.Text,
                 Destination = TxtDestination.Text,
-                SoldierData = soldierData,
                 InitialCounseling = new CounselingData
                 {
                     Assessment = TxtAssessmentInitial.Text,
@@ -176,20 +172,64 @@ namespace MIL.RTI.CourseDocumentGenerator
         private void PopulateMosQData()
         {
             TxtPurposeInitial.Text = MosQualificationDefault.InitialPurpose;
-            
+            TxtKeyPointsInitial.Text = MosQualificationDefault.InitialKeyPoints;
+            TxtPlanOfActionInitial.Text = MosQualificationDefault.InitialPlanOfAction;
+            TxtLeaderResponsibilitiesInitial.Text = MosQualificationDefault.InitialLeaderResponsibilities;
+            TxtAssessmentInitial.Text = MosQualificationDefault.InitialAssessment;
+
             TxtPurposeMidCourse.Text = MosQualificationDefault.MidCoursePurpose;
-            
+            TxtKeyPointsMidCourse.Text = MosQualificationDefault.MidCourseKeyPoints;
+            TxtPlanOfActionMidCourse.Text = MosQualificationDefault.MidCoursePlanOfAction;
+            TxtLeaderResponsibilitiesMidCourse.Text = MosQualificationDefault.MidCourseLeaderResponsibilities;
+            TxtAssessmentMidCourse.Text = MosQualificationDefault.MidCourseAssessment;
+
             TxtPurposeEndCourse.Text = MosQualificationDefault.EndCoursePurpose;
+            TxtKeyPointsEndCourse.Text = MosQualificationDefault.EndCourseKeyPoints;
+            TxtPlanOfActionEndCourse.Text = MosQualificationDefault.EndCoursePlanOfAction;
+            TxtLeaderResponsibilitiesEndCourse.Text = MosQualificationDefault.EndCourseLeaderResponsibilities;
+            TxtAssessmentEndCourse.Text = MosQualificationDefault.EndCourseAssessment;
         }
 
         private void PopulateAlcData()
         {
+            TxtPurposeInitial.Text = AlcDefault.InitialPurpose;
+            TxtKeyPointsInitial.Text = AlcDefault.InitialKeyPoints;
+            TxtPlanOfActionInitial.Text = AlcDefault.InitialPlanOfAction;
+            TxtLeaderResponsibilitiesInitial.Text = AlcDefault.InitialLeaderResponsibilities;
+            TxtAssessmentInitial.Text = AlcDefault.InitialAssessment;
 
+            TxtPurposeMidCourse.Text = AlcDefault.MidCoursePurpose;
+            TxtKeyPointsMidCourse.Text = AlcDefault.MidCourseKeyPoints;
+            TxtPlanOfActionMidCourse.Text = AlcDefault.MidCoursePlanOfAction;
+            TxtLeaderResponsibilitiesMidCourse.Text = AlcDefault.MidCourseLeaderResponsibilities;
+            TxtAssessmentMidCourse.Text = AlcDefault.MidCourseAssessment;
+
+            TxtPurposeEndCourse.Text = AlcDefault.EndCoursePurpose;
+            TxtKeyPointsEndCourse.Text = AlcDefault.EndCourseKeyPoints;
+            TxtPlanOfActionEndCourse.Text = AlcDefault.EndCoursePlanOfAction;
+            TxtLeaderResponsibilitiesEndCourse.Text = AlcDefault.EndCourseLeaderResponsibilities;
+            TxtAssessmentEndCourse.Text = AlcDefault.EndCourseAssessment;
         }
 
         private void PopulateSlcData()
         {
+            TxtPurposeInitial.Text = SlcDefault.InitialPurpose;
+            TxtKeyPointsInitial.Text = SlcDefault.InitialKeyPoints;
+            TxtPlanOfActionInitial.Text = SlcDefault.InitialPlanOfAction;
+            TxtLeaderResponsibilitiesInitial.Text = SlcDefault.InitialLeaderResponsibilities;
+            TxtAssessmentInitial.Text = SlcDefault.InitialAssessment;
 
+            TxtPurposeMidCourse.Text = SlcDefault.MidCoursePurpose;
+            TxtKeyPointsMidCourse.Text = SlcDefault.MidCourseKeyPoints;
+            TxtPlanOfActionMidCourse.Text = SlcDefault.MidCoursePlanOfAction;
+            TxtLeaderResponsibilitiesMidCourse.Text = SlcDefault.MidCourseLeaderResponsibilities;
+            TxtAssessmentMidCourse.Text = SlcDefault.MidCourseAssessment;
+
+            TxtPurposeEndCourse.Text = SlcDefault.EndCoursePurpose;
+            TxtKeyPointsEndCourse.Text = SlcDefault.EndCourseKeyPoints;
+            TxtPlanOfActionEndCourse.Text = SlcDefault.EndCoursePlanOfAction;
+            TxtLeaderResponsibilitiesEndCourse.Text = SlcDefault.EndCourseLeaderResponsibilities;
+            TxtAssessmentEndCourse.Text = SlcDefault.EndCourseAssessment;
         }
 
         private void ClearData()
