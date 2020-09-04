@@ -30,7 +30,10 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Pdf
             var document = GetPdf();
             var form = PdfAcroForm.GetAcroForm(document, true);
 
-            foreach (var field in fields) form.GetField(field.Key).SetValue(field.Value);
+            foreach (var field in fields)
+            {
+                form.GetField(field.Key).SetValue(field.Value);
+            }
 
             form.RemoveXfaForm();
             document.GetCatalog().Remove(PdfName.Perms);
