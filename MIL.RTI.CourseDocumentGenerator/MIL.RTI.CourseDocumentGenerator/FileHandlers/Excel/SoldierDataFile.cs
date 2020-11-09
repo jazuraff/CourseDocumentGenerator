@@ -8,8 +8,8 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel
 {
     public class SoldierDataFile
     {
-        private readonly ExcelQueryFactory _excel;
         private static readonly List<string> Columns = new List<string> {"Full Name", "MOS", "Rank/Grade"};
+        private readonly ExcelQueryFactory _excel;
 
         public SoldierDataFile(string path)
         {
@@ -31,13 +31,15 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel
             Columns.ForEach(x =>
             {
                 if (columns.All(c => c != x))
-                {
-                    throw new InvalidDataException($"Ensure the following Column Headers Exist in Sheet1: {string.Join(", ", Columns)}");
-                }
+                    throw new InvalidDataException(
+                        $"Ensure the following Column Headers Exist in Sheet1: {string.Join(", ", Columns)}");
             });
 
-            var data = _excel.Worksheet<SoldierData>().Select(a => a).ToList();
-            
+            var worksheet = _excel.Worksheet<SoldierData>();
+            var data = worksheet.Select(a => a).ToList();
+
+            data.ForEach(d => d.FullName = d.FullName.Trim());
+
             return data;
         }
     }

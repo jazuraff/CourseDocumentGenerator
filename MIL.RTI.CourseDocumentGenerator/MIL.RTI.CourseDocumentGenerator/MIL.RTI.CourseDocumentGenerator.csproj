@@ -104,11 +104,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Constants\ClassType.cs" />
     <Compile Include="Constants\CourseDefaults\AlcDefault.cs" />
     <Compile Include="Constants\CourseDefaults\SlcDefault.cs" />
     <Compile Include="Constants\Fields\Da4856July2014Fields.cs" />
     <Compile Include="Constants\CourseDefaults\MosQualificationDefault.cs" />
+    <Compile Include="FileHandlers\BaseFileUpdater.cs" />
     <Compile Include="FileHandlers\CourseFileGenerator.cs" />
+    <Compile Include="FileHandlers\Excel\Interfaces\IUpdateFile.cs" />
+    <Compile Include="FileHandlers\Excel\IndividualStudentProgressSheetHandler.cs" />
+    <Compile Include="FileHandlers\Excel\MasterStudentProgressWorksheetHandler.cs" />
+    <Compile Include="FileHandlers\Excel\TestScoreGpaPtScoreRosterHandler.cs" />
+    <Compile Include="FileHandlers\Excel\StudentRecordChecklistHandler.cs" />
+    <Compile Include="FileHandlers\Excel\SignInRosterHandler.cs" />
+    <Compile Include="FileHandlers\Excel\TravelDetailsHandler.cs" />
+    <Compile Include="FileHandlers\Excel\Workbook.cs" />
+    <Compile Include="FileHandlers\File\FileHandler.cs" />
     <Compile Include="FileHandlers\Pdf\Da4856Pdf.cs" />
     <Compile Include="FileHandlers\Pdf\Pdf.cs" />
     <Compile Include="Helper\WaitCursor.cs" />
@@ -147,8 +158,53 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Files\Da4856July2014.pdf">
+    <None Include="Files\13M10\Individual_Student_Progress_Sheet_13M10_Phase1.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\13M10\Master_Student_Progress_Worksheet_13M10_Phase1.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\13M30\Individual_Student_Progress_Sheet_13M30_Phase1.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\13M30\Individual_Student_Progress_Sheet_13M30_Phase2.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\13M30\Master_Student_Progress_Worksheet_13M30_Phase1.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\13M30\Master_Student_Progress_Worksheet_13M30_Phase2.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\Shared\Da4856July2014.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\13M40\Individual_Student_Progress_Sheet_13M40_Phase1.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\13M40\Individual_Student_Progress_Sheet_13M40_Phase2.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\13M40\Master_Student_Progress_Worksheet_13M40_Phase1.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\13M40\Master_Student_Progress_Worksheet_13M40_Phase2.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\Shared\PLT_Duty_Roster.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\Shared\Sign_In_Roster.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\Shared\Student_Record_Checklist.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\Shared\Test_Score_GPA_PT_ScoreRoster.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\Shared\Travel_Details.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -190,6 +246,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="196thRti2ndBn.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

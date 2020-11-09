@@ -4,9 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="2nd Bn 196th RTI Document Generator" Height="734" Width="800">
+        Title="2nd Bn 196th RTI Document Generator" Height="734" Width="800" Icon="196thRti2ndBn.ico">
     <Grid Margin="0,0,0.333,4.667">
-        <TabControl HorizontalAlignment="Left" Height="615" Margin="10,10,0,0" VerticalAlignment="Top" Width="773" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="67*"/>
+            <ColumnDefinition Width="329*"/>
+        </Grid.ColumnDefinitions>
+        <TabControl HorizontalAlignment="Left" Height="615" Margin="10,10,0,0" VerticalAlignment="Top" Width="773" Grid.ColumnSpan="2" >
             <TabItem x:Name="TabGlobal" Header="Global Data" Height="31" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="-2,0,0,-0.333" Width="117">
                 <Grid Background="#FFE5E5E5" Margin="0,0,-0.333,-1.667" RenderTransformOrigin="0.499,0.541">
                     <Grid.RowDefinitions>
@@ -21,21 +25,34 @@
                     <TextBox x:Name="TxtDestination" HorizontalAlignment="Left" Height="23" Margin="135,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="385" Grid.ColumnSpan="2"/>
                     <Button x:Name="BtnBrowseSoliderData" Content="Select Soldier Data File" HorizontalAlignment="Left" Margin="344,91,0,0" VerticalAlignment="Top" Width="141" Click="BtnBrowseSoliderData_Click" Grid.Column="1" Grid.ColumnSpan="2"/>
                     <TextBox x:Name="TxtSoldierData" HorizontalAlignment="Left" Height="23" Margin="135,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="385" Grid.ColumnSpan="2"/>
-                    <DatePicker x:Name="DtDateOfCounselingInitial" HorizontalAlignment="Left" Margin="52,228,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="188"/>
-                    <DatePicker x:Name="DtDateOfCounselingMidCourse" HorizontalAlignment="Left" Margin="104,228,0,0" VerticalAlignment="Top" Grid.Column="1" Width="188"/>
-                    <DatePicker x:Name="DtDateOfCounselingEnd" HorizontalAlignment="Left" Margin="342,228,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1" Width="188"/>
-                    <Label x:Name="LblInitialDate" Content="Initial Counseling Date:" HorizontalAlignment="Left" Margin="52,204,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="188"/>
-                    <Label x:Name="LblMidCourseDate" Content="Mid-Course Counseling Date:" HorizontalAlignment="Left" Margin="104,204,0,0" VerticalAlignment="Top" Width="188" Grid.Column="1"/>
-                    <Label x:Name="LblEndOfCourseDate" Content="End Of Course Counseling Date:" HorizontalAlignment="Left" Margin="342,204,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="188" Grid.Column="1"/>
-                    <Label x:Name="LblCounselorName" Content="Name and Title of Counselor:" HorizontalAlignment="Left" Margin="48,293,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="170"/>
-                    <TextBox x:Name="TxtCounselorName" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="52,293,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="307"/>
-                    <ComboBox x:Name="CboCourseSelection" HorizontalAlignment="Left" Margin="159,157,0,0" VerticalAlignment="Top" Width="233" Grid.ColumnSpan="2" DropDownClosed="CboCourseSelection_DropdownClosed">
+                    <DatePicker x:Name="DtDateOfCounselingInitial" HorizontalAlignment="Left" Margin="52,257,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="188"/>
+                    <DatePicker x:Name="DtDateOfCounselingMidCourse" HorizontalAlignment="Left" Margin="104,257,0,0" VerticalAlignment="Top" Grid.Column="1" Width="188"/>
+                    <DatePicker x:Name="DtDateOfCounselingEnd" HorizontalAlignment="Left" Margin="342,257,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1" Width="188"/>
+                    <Label x:Name="LblInitialDate" Content="Initial Counseling Date:" HorizontalAlignment="Left" Margin="52,233,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="188"/>
+                    <Label x:Name="LblMidCourseDate" Content="Mid-Course Counseling Date:" HorizontalAlignment="Left" Margin="104,233,0,0" VerticalAlignment="Top" Width="188" Grid.Column="1"/>
+                    <Label x:Name="LblEndOfCourseDate" Content="End Of Course Counseling Date:" HorizontalAlignment="Left" Margin="342,233,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="188" Grid.Column="1"/>
+                    <Label x:Name="LblCounselorName" Content="Name and Title of Counselor:" HorizontalAlignment="Left" Margin="136,297,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="170"/>
+                    <TextBox x:Name="TxtCounselorName" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="140,297,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="307" Grid.ColumnSpan="2"/>
+                    <ComboBox x:Name="CboCourseSelection" HorizontalAlignment="Left" Margin="156,142,0,0" VerticalAlignment="Top" Width="117" Grid.ColumnSpan="2" DropDownClosed="CboCourseSelection_DropdownClosed">
                         <ComboBoxItem Content="13M10 -- MOSQ"/>
                         <ComboBoxItem Content="13M30 -- ALC"/>
                         <ComboBoxItem Content="13M40 -- SLC"/>
                     </ComboBox>
-                    <Label x:Name="LblCourse" Content="Select a Course:" HorizontalAlignment="Left" Margin="48,153,0,0" VerticalAlignment="Top" Width="96"/>
+                    <Label x:Name="LblCourse" Content="Select a Course:" HorizontalAlignment="Left" Margin="60,138,0,0" VerticalAlignment="Top" Width="96"/>
                     <Label x:Name="lblSpreadsheetDescription" Content="Column Headers Expected: Full Name, Rank/Grade, MOS" HorizontalAlignment="Left" Margin="135,66,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="340"/>
+                    <TextBox x:Name="txtClassNumber" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="286,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77"/>
+                    <Label x:Name="lblClassNumber" Content="Class #:" Grid.Column="1" HorizontalAlignment="Left" Margin="233,139,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtFiscalYear" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="30,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="77"/>
+                    <Label x:Name="lblFiscalYear" Content="Fiscal Year:" Grid.Column="1" HorizontalAlignment="Left" Margin="373,139,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <DatePicker x:Name="DtStartDate" HorizontalAlignment="Left" Margin="151,188,0,0" VerticalAlignment="Top" Width="188" Grid.ColumnSpan="2"/>
+                    <Label x:Name="LblStartDate" Content="Phase Start Date:" Margin="45,188,36,0" VerticalAlignment="Top"/>
+                    <DatePicker x:Name="DtEndDate" HorizontalAlignment="Left" Margin="312,188,0,0" VerticalAlignment="Top" Width="188" Grid.ColumnSpan="2" Grid.Column="1"/>
+                    <Label x:Name="LblEndDate" Content="Phase End Date:" HorizontalAlignment="Left" Margin="206,188,0,0" VerticalAlignment="Top" Width="106" Grid.Column="1"/>
+                    <ComboBox x:Name="CboPhase" HorizontalAlignment="Left" Margin="149,142,0,0" VerticalAlignment="Top" Width="64" Grid.Column="1" SelectedIndex="0">
+                        <ComboBoxItem Content="1"/>
+                        <ComboBoxItem Content="2"/>
+                    </ComboBox>
+                    <Label x:Name="LblPhase" Content="Phase:" HorizontalAlignment="Left" Margin="99,138,0,0" VerticalAlignment="Top" Width="49" Grid.Column="1"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TabInitial" Header="Initial Values" Margin="-2.333,0,-33,0">
@@ -94,6 +111,6 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button x:Name="BtnGenerate" Content="Generate Files" HorizontalAlignment="Left" Margin="616,630,0,0" VerticalAlignment="Top" Width="141" Height="36" Click="BtnGenerate_Click" />
+        <Button x:Name="BtnGenerate" Content="Generate Files" HorizontalAlignment="Left" Margin="482,630,0,0" VerticalAlignment="Top" Width="141" Height="36" Click="BtnGenerate_Click" Grid.Column="1" />
     </Grid>
 </Window>

@@ -2,15 +2,14 @@
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Forms;
+using MIL.RTI.CourseDocumentGenerator.Constants;
 using MIL.RTI.CourseDocumentGenerator.Constants.CourseDefaults;
 using MIL.RTI.CourseDocumentGenerator.FileHandlers;
 using MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel;
 using MIL.RTI.CourseDocumentGenerator.Helper;
 using MIL.RTI.CourseDocumentGenerator.Models;
 using MIL.RTI.CourseDocumentGenerator.Requests;
-using ComboBox = System.Windows.Controls.ComboBox;
 using MessageBox = System.Windows.MessageBox;
 
 namespace MIL.RTI.CourseDocumentGenerator
@@ -20,8 +19,12 @@ namespace MIL.RTI.CourseDocumentGenerator
     /// </summary>
     public partial class MainWindow : Window
     {
+        //TODO: the following processes have not yet been built
+        //1. Certificates - powerpoint - one slide per soldier - Form 87
+            // - Rank, First Name, Last Name, date range, CourseManager, Instructor
+        //2. Daily Duty class leader roster
         private bool _handle = true;
-        private const string Source = "./Files/Da4856July2014.pdf";
+        private ClassType _class;
 
         public MainWindow()
         {
@@ -61,8 +64,6 @@ namespace MIL.RTI.CourseDocumentGenerator
 
         private void BtnGenerate_Click(object sender, RoutedEventArgs e)
         {
-            //Things I want this app to do:
-            // - Dropdown of possible choices for organization
             using (new WaitCursor())
             {
                 var request = BuildRequest();
@@ -105,6 +106,12 @@ namespace MIL.RTI.CourseDocumentGenerator
             {
                 CounselorName = TxtCounselorName.Text,
                 Destination = TxtDestination.Text,
+                CourseStartDate = DtStartDate.SelectedDate,
+                CourseEndDate = DtEndDate.SelectedDate,
+                ClassNumber = txtClassNumber.Text,
+                FiscalYear = txtFiscalYear.Text,
+                Phase = int.Parse(CboPhase.Text),
+                Class = _class,
                 InitialCounseling = new CounselingData
                 {
                     Assessment = TxtAssessmentInitial.Text,
@@ -139,30 +146,26 @@ namespace MIL.RTI.CourseDocumentGenerator
 
         private void CboCourseSelection_DropdownClosed(object sender, EventArgs e)
         {
-            if (_handle) Handle();
+            if (_handle) HandleCourseSelection();
             _handle = true;
         }
 
-        private void CboCourseSelection_SelectionChanged(object sender,
-            SelectionChangedEventArgs e)
-        {
-            if (sender is ComboBox cmb) _handle = !cmb.IsDropDownOpen;
-            Handle();
-        }
-
-        private void Handle()
+        private void HandleCourseSelection()
         {
             ClearData();
 
-            switch (CboCourseSelection.SelectedItem.ToString().Split(new[] {": "}, StringSplitOptions.None).Last())
+            switch (CboCourseSelection.SelectedItem?.ToString().Split(new[] {": "}, StringSplitOptions.None).Last())
             {
                 case "13M10 -- MOSQ":
+                    _class = ClassType.Mosq;
                     PopulateMosQData();
                     break;
                 case "13M30 -- ALC":
+                    _class = ClassType.Alc;
                     PopulateAlcData();
                     break;
                 case "13M40 -- SLC":
+                    _class = ClassType.Slc;
                     PopulateSlcData();
                     break;
             }
@@ -250,6 +253,8 @@ namespace MIL.RTI.CourseDocumentGenerator
             TxtKeyPointsEndCourse.Text = "";
             TxtLeaderResponsibilitiesEndCourse.Text = "";
             TxtPlanOfActionEndCourse.Text = "";
+
+            CboPhase.SelectedIndex = 0;
         }
     }
 }

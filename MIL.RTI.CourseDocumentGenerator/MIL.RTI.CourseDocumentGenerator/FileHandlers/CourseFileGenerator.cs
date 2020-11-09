@@ -1,4 +1,9 @@
-﻿using MIL.RTI.CourseDocumentGenerator.FileHandlers.Pdf;
+﻿using System;
+using System.Collections.Generic;
+using MIL.RTI.CourseDocumentGenerator.Constants;
+using MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel;
+using MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel.Interfaces;
+using MIL.RTI.CourseDocumentGenerator.FileHandlers.Pdf;
 using MIL.RTI.CourseDocumentGenerator.Models;
 using MIL.RTI.CourseDocumentGenerator.Requests;
 
@@ -21,23 +26,61 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers
                 GenerateMidCourseCounseling(_request.MidCourseCounseling, sd);
                 GenerateEndOfCourseCounseling(_request.EndOfCourseCounseling, sd);
             });
+
+            GenerateExcelDocs();
         }
 
-        public void GenerateInitialCounseling(CounselingData counselingData, SoldierData soldier)
+        private void GenerateExcelDocs()
+        {
+            var baseSourcePath = $"{AppDomain.CurrentDomain.BaseDirectory}Files";
+
+            string classSuffix;
+            switch (_request.Class)
+            {
+                case ClassType.Mosq:
+                    classSuffix = "13M10";
+                    break;
+                case ClassType.Alc:
+                    classSuffix = "13M30";
+                    break;
+                case ClassType.Slc:
+                    classSuffix = "13M40";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            var list = new List<IUpdateFile>
+            {
+                new TestScoreGpaPtScoreRosterHandler($"{baseSourcePath}/Shared", _request.Destination, _request.Class),
+                new IndividualStudentProgressSheetHandler($"{baseSourcePath}/{classSuffix}", _request.Destination, _request.Class),
+                new MasterStudentProgressWorksheetHandler($"{baseSourcePath}/{classSuffix}", _request.Destination, _request.Class),
+                new SignInRosterHandler($"{baseSourcePath}/Shared", _request.Destination, _request.Class),
+                new StudentRecordChecklistHandler($"{baseSourcePath}/Shared", _request.Destination, _request.Class),
+                new TravelDetailsHandler($"{baseSourcePath}/Shared", _request.Destination, _request.Class),
+            };
+
+            foreach (var fileUpdater in list)
+            {
+                fileUpdater.UpdateFile(_request);
+            }
+        }
+
+        private void GenerateInitialCounseling(CounselingData counselingData, SoldierData soldier)
         {
             var directory = $"{_request.Destination}\\Initial";
             System.IO.Directory.CreateDirectory(directory);
             GenerateDa4856(counselingData, soldier, $"{directory}\\{soldier.FullName}.pdf");
         }
 
-        public void GenerateMidCourseCounseling(CounselingData counselingData, SoldierData soldier)
+        private void GenerateMidCourseCounseling(CounselingData counselingData, SoldierData soldier)
         {
             var directory = $"{_request.Destination}\\MidCourse";
             System.IO.Directory.CreateDirectory(directory);
             GenerateDa4856(counselingData, soldier, $"{directory}\\{soldier.FullName}.pdf");
         }
 
-        public void GenerateEndOfCourseCounseling(CounselingData counselingData, SoldierData soldier)
+        private void GenerateEndOfCourseCounseling(CounselingData counselingData, SoldierData soldier)
         {
             var directory = $"{_request.Destination}\\EndOfCourse";
             System.IO.Directory.CreateDirectory(directory);
@@ -46,7 +89,7 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers
 
         private void GenerateDa4856(CounselingData counselingData, SoldierData soldier, string destination)
         {
-            var generator = new Da4856Pdf(".\\Files\\Da4856July2014.pdf", destination);
+            var generator = new Da4856Pdf(".\\Files\\Shared\\Da4856July2014.pdf", destination);
 
             generator.GeneratePdf(counselingData, soldier, _request.CounselorName, _request.Organization);
         }

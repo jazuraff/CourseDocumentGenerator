@@ -15,7 +15,7 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Pdf
             _pdfDestination = pdfDestination;
         }
 
-        private PdfDocument GetPdf()
+        public PdfDocument GetPdf()
         {
             var reader = new PdfReader(_pdfSource).SetUnethicalReading(true);
             var writer = new PdfWriter(_pdfDestination);

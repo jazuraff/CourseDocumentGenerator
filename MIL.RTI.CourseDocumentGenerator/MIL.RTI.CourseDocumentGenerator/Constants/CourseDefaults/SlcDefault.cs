@@ -2,6 +2,8 @@
 {
     public static class SlcDefault
     {
+        public const string CourseNumber = "061-13M40-C46";
+
         public const string InitialPurpose = "This\r\n\r\nIs Initial Purpose";
         public const string InitialKeyPoints = "This\r\n\r\nIs Initial keypoints";
         public const string InitialPlanOfAction = "This\r\n\r\nIs Initial Plan of Action";
