@@ -1,7 +1,7 @@
 ﻿using MIL.RTI.CourseDocumentGenerator.Constants;
 using MIL.RTI.CourseDocumentGenerator.FileHandlers.File;
 
-namespace MIL.RTI.CourseDocumentGenerator.FileHandlers
+namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Abstracts
 {
     public abstract class BaseFileUpdater
     {
@@ -9,8 +9,9 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers
         protected readonly string BaseTargetFileName;
         protected readonly string SourcePath;
         protected readonly int PhaseCount;
+        protected readonly string FileType;
 
-        protected BaseFileUpdater(string sourcePath, string targetPath, string baseFileName, ClassType classType)
+        protected BaseFileUpdater(string sourcePath, string targetPath, string baseFileName, ClassType classType, string fileType)
         {
             string newFileName;
 
@@ -30,6 +31,7 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers
                     break;
             }
 
+            FileType = fileType;
             SourcePath = sourcePath;
             TargetPath = targetPath;
             BaseTargetFileName = newFileName;
@@ -37,7 +39,7 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers
 
         protected string GetFileName(int phase)
         {
-            var fileName = $"{BaseTargetFileName}_Phase{phase}.xlsx";
+            var fileName = $"{BaseTargetFileName}_Phase{phase}{FileType}";
             return fileName;
         }
 

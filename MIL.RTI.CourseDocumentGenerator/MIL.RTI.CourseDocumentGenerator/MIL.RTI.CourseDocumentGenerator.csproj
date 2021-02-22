@@ -14,6 +14,21 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -74,6 +89,9 @@
     <Reference Include="LinqToExcel, Version=1.11.0.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
       <HintPath>..\packages\LinqToExcel.1.11.0\lib\LinqToExcel.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
       <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.dll</HintPath>
     </Reference>
@@ -106,22 +124,32 @@
     </ApplicationDefinition>
     <Compile Include="Constants\ClassType.cs" />
     <Compile Include="Constants\CourseDefaults\AlcDefault.cs" />
+    <Compile Include="Constants\CourseDefaults\Models\CounselingForm.cs" />
+    <Compile Include="Constants\CourseDefaults\Models\PhaseCounselings.cs" />
     <Compile Include="Constants\CourseDefaults\SlcDefault.cs" />
+    <Compile Include="Constants\CourseDefaults\SlcDefaultPhase1.cs" />
     <Compile Include="Constants\Fields\Da4856July2014Fields.cs" />
     <Compile Include="Constants\CourseDefaults\MosQualificationDefault.cs" />
-    <Compile Include="FileHandlers\BaseFileUpdater.cs" />
+    <Compile Include="Constants\FileTypes.cs" />
+    <Compile Include="Constants\CourseDefaults\SlcDefaultPhase2.cs" />
+    <Compile Include="FileHandlers\Abstracts\BaseFileUpdater.cs" />
     <Compile Include="FileHandlers\CourseFileGenerator.cs" />
-    <Compile Include="FileHandlers\Excel\Interfaces\IUpdateFile.cs" />
-    <Compile Include="FileHandlers\Excel\IndividualStudentProgressSheetHandler.cs" />
-    <Compile Include="FileHandlers\Excel\MasterStudentProgressWorksheetHandler.cs" />
-    <Compile Include="FileHandlers\Excel\TestScoreGpaPtScoreRosterHandler.cs" />
-    <Compile Include="FileHandlers\Excel\StudentRecordChecklistHandler.cs" />
-    <Compile Include="FileHandlers\Excel\SignInRosterHandler.cs" />
-    <Compile Include="FileHandlers\Excel\TravelDetailsHandler.cs" />
+    <Compile Include="FileHandlers\Excel\Updater\ClassRecordsChecklistHandler.cs" />
+    <Compile Include="FileHandlers\Interfaces\IUpdateFile.cs" />
+    <Compile Include="FileHandlers\Excel\Updater\IndividualStudentProgressSheetHandler.cs" />
+    <Compile Include="FileHandlers\Excel\Updater\MasterStudentProgressWorksheetHandler.cs" />
+    <Compile Include="FileHandlers\Excel\Updater\PlatoonDutyRosterHandler.cs" />
+    <Compile Include="FileHandlers\Excel\Updater\TestScoreGpaPtScoreRosterHandler.cs" />
+    <Compile Include="FileHandlers\Excel\Updater\StudentRecordChecklistHandler.cs" />
+    <Compile Include="FileHandlers\Excel\Updater\SignInRosterHandler.cs" />
+    <Compile Include="FileHandlers\Excel\Updater\TravelDetailsHandler.cs" />
     <Compile Include="FileHandlers\Excel\Workbook.cs" />
     <Compile Include="FileHandlers\File\FileHandler.cs" />
-    <Compile Include="FileHandlers\Pdf\Da4856Pdf.cs" />
+    <Compile Include="FileHandlers\Pdf\Da1059Handler.cs" />
+    <Compile Include="FileHandlers\Pdf\Da4856Handler.cs" />
     <Compile Include="FileHandlers\Pdf\Pdf.cs" />
+    <Compile Include="FileHandlers\Powerpoint\Updater\DaForm87Handler.cs" />
+    <Compile Include="Helper\GradeHelper.cs" />
     <Compile Include="Helper\WaitCursor.cs" />
     <Compile Include="Models\CounselingData.cs" />
     <Compile Include="Requests\CourseCounselingRequest.cs" />
@@ -134,7 +162,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\SoldierData.cs" />
-    <Compile Include="FileHandlers\Excel\SoldierDataFile.cs" />
+    <Compile Include="FileHandlers\Excel\SoldierDataFileHandler.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -158,10 +186,25 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Files\13M10\13M10Counseling.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\13M10\DA_Form_87_Certificates_13M10_Phase1.ppt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Files\13M10\Individual_Student_Progress_Sheet_13M10_Phase1.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Files\13M10\Master_Student_Progress_Worksheet_13M10_Phase1.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\13M10\Test_Score_GPA_PT_ScoreRoster_13M10_Phase1.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\13M30\DA_Form_87_Certificates_13M30_Phase2.ppt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\13M30\DA_Form_87_Certificates_13M30_Phase1.ppt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Files\13M30\Individual_Student_Progress_Sheet_13M30_Phase1.xlsx">
@@ -176,8 +219,29 @@
     <None Include="Files\13M30\Master_Student_Progress_Worksheet_13M30_Phase2.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Files\13M30\Test_Score_GPA_PT_ScoreRoster_13M30_Phase1.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\13M30\Test_Score_GPA_PT_ScoreRoster_13M30_Phase2.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\13M40\DA_Form_87_Certificates_13M40_Phase1.ppt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\13M40\DA_Form_87_Certificates_13M40_Phase2.ppt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\13M40\Test_Score_GPA_PT_ScoreRoster_13M40_Phase1.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\13M40\Test_Score_GPA_PT_ScoreRoster_13M40_Phase2.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Files\Shared\Class_Records_Checklist.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Files\Shared\Da4856July2014.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Files\13M40\Individual_Student_Progress_Sheet_13M40_Phase1.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -198,9 +262,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Files\Shared\Student_Record_Checklist.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Files\Shared\Test_Score_GPA_PT_ScoreRoster.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Files\Shared\Travel_Details.xlsx">
@@ -249,6 +310,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="196thRti2ndBn.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

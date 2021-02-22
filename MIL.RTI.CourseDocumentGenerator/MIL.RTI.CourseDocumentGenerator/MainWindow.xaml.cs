@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using MIL.RTI.CourseDocumentGenerator.Constants;
 using MIL.RTI.CourseDocumentGenerator.Constants.CourseDefaults;
@@ -22,7 +23,6 @@ namespace MIL.RTI.CourseDocumentGenerator
         //TODO: the following processes have not yet been built
         //1. Certificates - powerpoint - one slide per soldier - Form 87
             // - Rank, First Name, Last Name, date range, CourseManager, Instructor
-        //2. Daily Duty class leader roster
         private bool _handle = true;
         private ClassType _class;
 
@@ -35,7 +35,7 @@ namespace MIL.RTI.CourseDocumentGenerator
         {
             using (var dlg = new OpenFileDialog())
             {
-                dlg.Filter = @"Excel files (*.xls or .xlsx)|.xls;*.xlsx";
+                dlg.Filter = @"Excel files (*.xls or .xlsx)|*.xls;*.xlsx";
                 dlg.ValidateNames = true;
                 var result = dlg.ShowDialog();
 
@@ -70,7 +70,7 @@ namespace MIL.RTI.CourseDocumentGenerator
 
                 var errors = request.Validate();
 
-                var excelSheet = new SoldierDataFile(TxtSoldierData.Text);
+                var excelSheet = new SoldierDataFileHandler(TxtSoldierData.Text);
 
                 if (errors.Count > 0)
                 {
@@ -93,6 +93,10 @@ namespace MIL.RTI.CourseDocumentGenerator
                     MessageBox.Show(ide.Message);
                     return;
                 }
+                finally
+                {
+                    excelSheet.Dispose();
+                }
 
                 var generator = new CourseFileGenerator(request);
                 generator.Execute();
@@ -104,7 +108,8 @@ namespace MIL.RTI.CourseDocumentGenerator
 
             var request = new CourseCounselingRequest
             {
-                CounselorName = TxtCounselorName.Text,
+                InstructorName = TxtInstructorName.Text,
+                InstructorTitle = TxtInstructorTitle.Text,
                 Destination = TxtDestination.Text,
                 CourseStartDate = DtStartDate.SelectedDate,
                 CourseEndDate = DtEndDate.SelectedDate,
@@ -146,32 +151,46 @@ namespace MIL.RTI.CourseDocumentGenerator
 
         private void CboCourseSelection_DropdownClosed(object sender, EventArgs e)
         {
-            if (_handle) HandleCourseSelection();
+            if (_handle)
+            {
+                ClearData();
+                HandleCourseSelection();
+            }
+
             _handle = true;
         }
 
         private void HandleCourseSelection()
         {
-            ClearData();
-
             switch (CboCourseSelection.SelectedItem?.ToString().Split(new[] {": "}, StringSplitOptions.None).Last())
             {
                 case "13M10 -- MOSQ":
                     _class = ClassType.Mosq;
                     PopulateMosQData();
+                    CboPhase.IsEnabled = false;
+                    DtDateOfCounselingMidCourse.Visibility = Visibility.Visible;
+                    LblMidCourseDate.Visibility = Visibility.Visible;
+                    TabMidCourse.Visibility = Visibility.Visible;
                     break;
                 case "13M30 -- ALC":
                     _class = ClassType.Alc;
+                    DtDateOfCounselingMidCourse.Visibility = Visibility.Hidden;
+                    LblMidCourseDate.Visibility = Visibility.Hidden;
+                    TabMidCourse.Visibility = Visibility.Hidden;
+                        
                     PopulateAlcData();
                     break;
                 case "13M40 -- SLC":
                     _class = ClassType.Slc;
+                    DtDateOfCounselingMidCourse.Visibility = Visibility.Hidden;
+                    LblMidCourseDate.Visibility = Visibility.Hidden;
+                    TabMidCourse.Visibility = Visibility.Hidden;
                     PopulateSlcData();
                     break;
             }
         }
 
-        private void PopulateMosQData()
+        public void PopulateMosQData()
         {
             TxtPurposeInitial.Text = MosQualificationDefault.InitialPurpose;
             TxtKeyPointsInitial.Text = MosQualificationDefault.InitialKeyPoints;
@@ -200,12 +219,6 @@ namespace MIL.RTI.CourseDocumentGenerator
             TxtLeaderResponsibilitiesInitial.Text = AlcDefault.InitialLeaderResponsibilities;
             TxtAssessmentInitial.Text = AlcDefault.InitialAssessment;
 
-            TxtPurposeMidCourse.Text = AlcDefault.MidCoursePurpose;
-            TxtKeyPointsMidCourse.Text = AlcDefault.MidCourseKeyPoints;
-            TxtPlanOfActionMidCourse.Text = AlcDefault.MidCoursePlanOfAction;
-            TxtLeaderResponsibilitiesMidCourse.Text = AlcDefault.MidCourseLeaderResponsibilities;
-            TxtAssessmentMidCourse.Text = AlcDefault.MidCourseAssessment;
-
             TxtPurposeEndCourse.Text = AlcDefault.EndCoursePurpose;
             TxtKeyPointsEndCourse.Text = AlcDefault.EndCourseKeyPoints;
             TxtPlanOfActionEndCourse.Text = AlcDefault.EndCoursePlanOfAction;
@@ -221,17 +234,28 @@ namespace MIL.RTI.CourseDocumentGenerator
             TxtLeaderResponsibilitiesInitial.Text = SlcDefault.InitialLeaderResponsibilities;
             TxtAssessmentInitial.Text = SlcDefault.InitialAssessment;
 
-            TxtPurposeMidCourse.Text = SlcDefault.MidCoursePurpose;
-            TxtKeyPointsMidCourse.Text = SlcDefault.MidCourseKeyPoints;
-            TxtPlanOfActionMidCourse.Text = SlcDefault.MidCoursePlanOfAction;
-            TxtLeaderResponsibilitiesMidCourse.Text = SlcDefault.MidCourseLeaderResponsibilities;
-            TxtAssessmentMidCourse.Text = SlcDefault.MidCourseAssessment;
+            ComboBoxItem typeItem = (ComboBoxItem)CboPhase.SelectedItem;
+            var value = typeItem.Content.ToString();
 
-            TxtPurposeEndCourse.Text = SlcDefault.EndCoursePurpose;
-            TxtKeyPointsEndCourse.Text = SlcDefault.EndCourseKeyPoints;
-            TxtPlanOfActionEndCourse.Text = SlcDefault.EndCoursePlanOfAction;
-            TxtLeaderResponsibilitiesEndCourse.Text = SlcDefault.EndCourseLeaderResponsibilities;
-            TxtAssessmentEndCourse.Text = SlcDefault.EndCourseAssessment;
+            TxtPurposeInitial.Text = TxtPurposeInitial.Text.Replace("%PHASE%", value);
+
+            switch (value)
+            {
+                case "1":
+                    TxtPurposeEndCourse.Text = SlcDefaultPhase1.EndCoursePurpose;
+                    TxtKeyPointsEndCourse.Text = SlcDefaultPhase1.EndCourseKeyPoints;
+                    TxtPlanOfActionEndCourse.Text = SlcDefaultPhase1.EndCoursePlanOfAction;
+                    TxtLeaderResponsibilitiesEndCourse.Text = SlcDefaultPhase1.EndCourseLeaderResponsibilities;
+                    TxtAssessmentEndCourse.Text = SlcDefaultPhase1.EndCourseAssessment;
+                    break;
+                case "2":
+                    TxtPurposeEndCourse.Text = SlcDefaultPhase2.EndCoursePurpose;
+                    TxtKeyPointsEndCourse.Text = SlcDefaultPhase2.EndCourseKeyPoints;
+                    TxtPlanOfActionEndCourse.Text = SlcDefaultPhase2.EndCoursePlanOfAction;
+                    TxtLeaderResponsibilitiesEndCourse.Text = SlcDefaultPhase2.EndCourseLeaderResponsibilities;
+                    TxtAssessmentEndCourse.Text = SlcDefaultPhase2.EndCourseAssessment;
+                    break;
+            }
         }
 
         private void ClearData()
@@ -255,6 +279,12 @@ namespace MIL.RTI.CourseDocumentGenerator
             TxtPlanOfActionEndCourse.Text = "";
 
             CboPhase.SelectedIndex = 0;
+            CboPhase.IsEnabled = true;
+        }
+
+        private void CboPhase_DropDownClosed(object sender, EventArgs e)
+        {
+            HandleCourseSelection();
         }
     }
 }

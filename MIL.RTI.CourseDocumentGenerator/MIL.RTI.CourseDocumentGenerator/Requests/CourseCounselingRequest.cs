@@ -8,7 +8,9 @@ namespace MIL.RTI.CourseDocumentGenerator.Requests
 {
     public class CourseCounselingRequest
     {
-        public string CounselorName { get; set; }
+        public string InstructorName { get; set; }
+
+        public string InstructorTitle { get; set; }
 
         public string Destination { get; set; }
 
@@ -56,9 +58,9 @@ namespace MIL.RTI.CourseDocumentGenerator.Requests
         {
             var errors = new List<string>();
             
-            if (string.IsNullOrEmpty(CounselorName))
+            if (string.IsNullOrEmpty(InstructorName) || string.IsNullOrEmpty(InstructorTitle))
             {
-                errors.Add("Name And Title of Counselor is Required");
+                errors.Add("Name And Title of Instructor is Required");
             }
 
             if (string.IsNullOrEmpty(Destination))
@@ -71,7 +73,7 @@ namespace MIL.RTI.CourseDocumentGenerator.Requests
                 errors.Add("Initial Counseling Date is Required");
             }
 
-            if (MidCourseCounseling?.DateOfCounseling == null)
+            if (Class == ClassType.Mosq && MidCourseCounseling?.DateOfCounseling == null)
             {
                 errors.Add("Mid-Course Counseling Date is Required");
             }

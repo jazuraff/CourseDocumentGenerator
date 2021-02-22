@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using MIL.RTI.CourseDocumentGenerator.Constants;
 using MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel;
-using MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel.Interfaces;
+using MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel.Updater;
+using MIL.RTI.CourseDocumentGenerator.FileHandlers.Interfaces;
 using MIL.RTI.CourseDocumentGenerator.FileHandlers.Pdf;
+using MIL.RTI.CourseDocumentGenerator.FileHandlers.Powerpoint.Updater;
 using MIL.RTI.CourseDocumentGenerator.Models;
 using MIL.RTI.CourseDocumentGenerator.Requests;
 
@@ -23,7 +25,12 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers
             _request.SoldierData.ForEach(sd =>
             {
                 GenerateInitialCounseling(_request.InitialCounseling, sd);
-                GenerateMidCourseCounseling(_request.MidCourseCounseling, sd);
+                
+                if (_request.Class == ClassType.Mosq)
+                {
+                    GenerateMidCourseCounseling(_request.MidCourseCounseling, sd);
+                }
+               
                 GenerateEndOfCourseCounseling(_request.EndOfCourseCounseling, sd);
             });
 
@@ -52,12 +59,15 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers
 
             var list = new List<IUpdateFile>
             {
-                new TestScoreGpaPtScoreRosterHandler($"{baseSourcePath}/Shared", _request.Destination, _request.Class),
+                new TestScoreGpaPtScoreRosterHandler($"{baseSourcePath}/{classSuffix}", _request.Destination, _request.Class), 
                 new IndividualStudentProgressSheetHandler($"{baseSourcePath}/{classSuffix}", _request.Destination, _request.Class),
                 new MasterStudentProgressWorksheetHandler($"{baseSourcePath}/{classSuffix}", _request.Destination, _request.Class),
                 new SignInRosterHandler($"{baseSourcePath}/Shared", _request.Destination, _request.Class),
                 new StudentRecordChecklistHandler($"{baseSourcePath}/Shared", _request.Destination, _request.Class),
                 new TravelDetailsHandler($"{baseSourcePath}/Shared", _request.Destination, _request.Class),
+                new PlatoonDutyRosterHandler($"{baseSourcePath}/Shared", _request.Destination, _request.Class),
+                new DaForm87Handler($"{baseSourcePath}/{classSuffix}", _request.Destination, _request.Class),
+                new ClassRecordsChecklistHandler($"{baseSourcePath}/Shared", _request.Destination, _request.Class)
             };
 
             foreach (var fileUpdater in list)
@@ -89,9 +99,9 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers
 
         private void GenerateDa4856(CounselingData counselingData, SoldierData soldier, string destination)
         {
-            var generator = new Da4856Pdf(".\\Files\\Shared\\Da4856July2014.pdf", destination);
+            var generator = new Da4856Handler(".\\Files\\Shared\\Da4856July2014.pdf", destination);
 
-            generator.GeneratePdf(counselingData, soldier, _request.CounselorName, _request.Organization);
+            generator.GeneratePdf(counselingData, soldier, _request.InstructorName, _request.InstructorTitle, _request.Organization);
         }
     }
 }

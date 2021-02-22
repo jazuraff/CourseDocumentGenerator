@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Office.Interop.Excel;
 using MIL.RTI.CourseDocumentGenerator.Constants;
-using MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel.Interfaces;
+using MIL.RTI.CourseDocumentGenerator.FileHandlers.Interfaces;
+using MIL.RTI.CourseDocumentGenerator.FileHandlers.Abstracts;
 using MIL.RTI.CourseDocumentGenerator.Models;
 using MIL.RTI.CourseDocumentGenerator.Requests;
 
-namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel
+namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel.Updater
 {
     public class SignInRosterHandler : BaseFileUpdater, IUpdateFile
     {
@@ -14,7 +15,7 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel
         private const int SoldierNameColumn = 1;
 
         public SignInRosterHandler(string sourcePath, string targetPath, ClassType classType)
-            : base(sourcePath, targetPath, BaseFileName, classType) { }
+            : base(sourcePath, targetPath, BaseFileName, classType, FileTypes.Excel) { }
 
         public void UpdateFile(CourseCounselingRequest request)
         {
@@ -31,7 +32,7 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel
                 var worksheet = (Worksheet) workbook.Worksheets.Item[1];
 
                 UpdateClassNumber(request.ClassNumber, worksheet);
-                UpdateInstructor(request.CounselorName, worksheet);
+                UpdateInstructor(request.InstructorName, worksheet);
                 UpdateCourse(request.Course, worksheet);
                 AddSoldiers(request.SoldierData, worksheet);
             }

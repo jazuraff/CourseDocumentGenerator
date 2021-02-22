@@ -1,6 +1,6 @@
 ﻿using MIL.RTI.CourseDocumentGenerator.Requests;
 
-namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel.Interfaces
+namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Interfaces
 {
     public interface IUpdateFile
     {

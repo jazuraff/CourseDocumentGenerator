@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MIL.RTI.CourseDocumentGenerator", "MIL.RTI.CourseDocumentGenerator\MIL.RTI.CourseDocumentGenerator.csproj", "{F6FC3495-842B-4D30-80D0-57B9C084934E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MIL.RTI.CourseDocumentGenerator.Tests", "MIL.RTI.CourseDocumentGenerator.Tests\MIL.RTI.CourseDocumentGenerator.Tests.csproj", "{66AC3992-41B5-44CF-A6BA-E1984F863DF1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F6FC3495-842B-4D30-80D0-57B9C084934E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6FC3495-842B-4D30-80D0-57B9C084934E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6FC3495-842B-4D30-80D0-57B9C084934E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66AC3992-41B5-44CF-A6BA-E1984F863DF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66AC3992-41B5-44CF-A6BA-E1984F863DF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66AC3992-41B5-44CF-A6BA-E1984F863DF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66AC3992-41B5-44CF-A6BA-E1984F863DF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Office.Interop.Excel;
 using MIL.RTI.CourseDocumentGenerator.Constants;
-using MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel.Interfaces;
+using MIL.RTI.CourseDocumentGenerator.FileHandlers.Interfaces;
+using MIL.RTI.CourseDocumentGenerator.FileHandlers.Abstracts;
 using MIL.RTI.CourseDocumentGenerator.Models;
 using MIL.RTI.CourseDocumentGenerator.Requests;
 
-namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel
+namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel.Updater
 {
-    public class TestScoreGpaPtScoreRosterHandler : BaseFileUpdater, IUpdateFile
+    public class PlatoonDutyRosterHandler : BaseFileUpdater, IUpdateFile
     {
-        private const int StartingRowForInserts = 3;
+        private const int StartingRowForInserts = 2;
         private const int SoldierNameColumn = 1;
-        private const int RankColumn = 2;
-        private const string BaseFileName = "Test_Score_GPA_PT_ScoreRoster";
+        private const string BaseFileName = "PLT_Duty_Roster";
 
-        public TestScoreGpaPtScoreRosterHandler(string sourcePath, string targetPath, ClassType classType) 
-        : base(sourcePath, targetPath, BaseFileName, classType) {}
+        public PlatoonDutyRosterHandler(string sourcePath, string targetPath, ClassType classType) 
+        : base(sourcePath, targetPath, BaseFileName, classType, FileTypes.Excel) {}
 
         public void UpdateFile(CourseCounselingRequest request)
         {
@@ -42,7 +42,6 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel
             request.ForEach(sd =>
             {
                 worksheet.Cells[currentRow, SoldierNameColumn] = sd.FullName;
-                worksheet.Cells[currentRow, RankColumn] = sd.Rank;
 
                 currentRow += 1;
             });

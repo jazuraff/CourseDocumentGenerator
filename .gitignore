@@ -11,3 +11,12 @@
 /MIL.RTI.CourseDocumentGenerator/.vs/MIL.RTI.CourseDocumentGenerator/v16
 /MIL.RTI.CourseDocumentGenerator/packages
 /MIL.RTI.CourseDocumentGenerator/.vs/MIL.RTI.CourseDocumentGenerator/v15
+/MIL.RTI.CourseDocumentGenerator/MIL.RTI.CourseDocumentGenerator/bin/Release/Files/13M10
+/MIL.RTI.CourseDocumentGenerator/MIL.RTI.CourseDocumentGenerator/bin/Release/Files/13M30
+/MIL.RTI.CourseDocumentGenerator/MIL.RTI.CourseDocumentGenerator/bin/Release/Files/13M40
+/MIL.RTI.CourseDocumentGenerator/MIL.RTI.CourseDocumentGenerator/bin/Release/Files/Shared
+*.cache
+/MIL.RTI.CourseDocumentGenerator/MIL.RTI.CourseDocumentGenerator.Tests/bin/Debug
+/MIL.RTI.CourseDocumentGenerator/MIL.RTI.CourseDocumentGenerator.Tests/bin/Release
+/MIL.RTI.CourseDocumentGenerator/MIL.RTI.CourseDocumentGenerator.Tests/obj/Release
+/MIL.RTI.CourseDocumentGenerator/MIL.RTI.CourseDocumentGenerator.Tests/obj/Debug

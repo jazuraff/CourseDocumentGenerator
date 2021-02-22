@@ -4,7 +4,7 @@
     {
         public string FullName { get; set; }
 
-        public string Rank { get; set; }
+        public string Grade { get; set; }
 
         public string Mos { get; set; }
     }
