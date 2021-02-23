@@ -14,7 +14,7 @@ namespace MIL.RTI.CourseDocumentGenerator.Requests
 
         public string Destination { get; set; }
 
-        public string Organization => "2nd Bn 196th RTI";
+        public string Organization => "2nd Battalion, 196th Modular Training Regiment (RTI-SD)";
 
         public string FiscalYear { get; set; }
 

@@ -238,6 +238,8 @@ namespace MIL.RTI.CourseDocumentGenerator
             var value = typeItem.Content.ToString();
 
             TxtPurposeInitial.Text = TxtPurposeInitial.Text.Replace("%PHASE%", value);
+            TxtLeaderResponsibilitiesInitial.Text = TxtLeaderResponsibilitiesInitial.Text.Replace("%PHASE%", value);
+            TxtAssessmentInitial.Text = TxtAssessmentInitial.Text.Replace("%PHASE%", value);
 
             switch (value)
             {

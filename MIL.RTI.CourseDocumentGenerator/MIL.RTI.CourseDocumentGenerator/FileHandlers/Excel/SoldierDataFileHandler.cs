@@ -43,7 +43,7 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel
 
             if (columns[0].Contains("FOR OFFICIAL USE ONLY"))
             {
-                throw new InvalidOperationException(
+                throw new InvalidDataException(
                     $"Please remove the header data from the ATRRS roster to proceed");
             }
 
