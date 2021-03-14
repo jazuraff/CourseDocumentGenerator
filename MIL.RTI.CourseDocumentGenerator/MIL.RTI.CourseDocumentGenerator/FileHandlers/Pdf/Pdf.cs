@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using iText.Forms;
+﻿using iText.Forms;
 using iText.Kernel.Pdf;
+using System.Collections.Generic;
 
 namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Pdf
 {
@@ -19,7 +19,7 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Pdf
         {
             var reader = new PdfReader(_pdfSource).SetUnethicalReading(true);
             var writer = new PdfWriter(_pdfDestination);
-            
+
             var document = new PdfDocument(reader, writer);
 
             return document;

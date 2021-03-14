@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using MIL.RTI.CourseDocumentGenerator.Constants.Fields;
+﻿using MIL.RTI.CourseDocumentGenerator.Constants.Fields;
 using MIL.RTI.CourseDocumentGenerator.Helper;
 using MIL.RTI.CourseDocumentGenerator.Models;
+using System.Collections.Generic;
 
 namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Pdf
 {

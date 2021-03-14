@@ -1,9 +1,9 @@
-﻿using System;
+﻿using LinqToExcel;
+using MIL.RTI.CourseDocumentGenerator.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using LinqToExcel;
-using MIL.RTI.CourseDocumentGenerator.Models;
 
 namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel
 {
@@ -13,7 +13,7 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel
         private const string Mos = "PMOSEN";
         private const string Grade = "Pay Grade";
 
-        private static readonly List<string> Columns = new List<string> {Name, Mos, Grade};
+        private static readonly List<string> Columns = new List<string> { Name, Mos, Grade };
         private readonly ExcelQueryFactory _excel;
 
         public SoldierDataFileHandler(string path)
@@ -60,7 +60,7 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel
             var data = worksheet.Select(a => a).ToList();
 
             data.ForEach(d => d.FullName = d.FullName.Trim());
-                       
+
             return data;
         }
 

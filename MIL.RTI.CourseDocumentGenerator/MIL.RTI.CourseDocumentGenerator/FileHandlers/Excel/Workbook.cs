@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Collections.Generic;
-using Microsoft.Office.Interop.Excel;
 
 namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel
 {
@@ -16,7 +16,7 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel
         }
 
         private void Open(string filePath, int workSheetsCount)
-        { 
+        {
             _application = new Application();
             OpenWorkbook = _application.Workbooks.Open(filePath);
 
@@ -24,7 +24,7 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel
 
             for (var i = 1; i <= workSheetsCount; i++)
             {
-                var xlWorkSheet = (Worksheet) OpenWorkbook.Worksheets.Item[i];
+                var xlWorkSheet = (Worksheet)OpenWorkbook.Worksheets.Item[i];
                 _worksheets.Add(xlWorkSheet);
             }
         }
@@ -39,7 +39,7 @@ namespace MIL.RTI.CourseDocumentGenerator.FileHandlers.Excel
             var misValue = System.Reflection.Missing.Value;
 
             OpenWorkbook.Close(true, misValue, misValue);
-            
+
             _application.Quit();
 
             _worksheets.ForEach(ReleaseObject);
